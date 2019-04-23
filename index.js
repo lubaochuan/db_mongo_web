@@ -1,6 +1,18 @@
 var express = require('express');
 var app = express();
 
+app.use('/about', (req, res) => {
+  res.send('This is the about page.');
+});
+
+app.use('/login', (req, res) => {
+  res.send('This is the login page.');
+});
+
+app.use( /*default*/ (req, res) => {
+  res.status(404).send('Not found!');
+});
+
 app.use('/', (req, res) => {
   var name = req.query.name; // e.g. /?name=devesh
   res.status(200).type('html');
