@@ -9,6 +9,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var Book = require('./Book.js');
 
 app.use('/createbook', (req, res) => {
+  console.log("get new book: "+JSON.stringify(req.body));
   var newBook = new Book(req.body);
   newBook.save( (err) => {
     if (err) {
@@ -16,6 +17,17 @@ app.use('/createbook', (req, res) => {
       res.send('Error: ' + err);
     } else {
       res.send('Created new book');
+    }
+  });
+});
+
+app.use('/list', (req, res) => {
+  Book.find((err, books) => {
+    if (err) {
+      res.type('html').status(500);
+      res.send('Error: ' + err);
+    } else {
+      res.render('books', { books: books });
     }
   });
 });
@@ -34,17 +46,17 @@ function searchAny(req, res) {
   var terms = [];
 
   if (req.body.title) {
-  terms.push( { title: { $regex : req.body.title } });
+  terms.push({ title: { $regex : req.body.title } });
   }
   if (req.body.name) {
-    terms.push( { 'authors.name' : req.body.name });
+    terms.push({ 'authors.name' : req.body.name });
   }
   if (req.body.year) {
-    terms.push( { year: req.body.year });
+    terms.push({ year: req.body.year });
   }
   var query = { $or : terms };
 
-  Book.find( query, (err, books) => {
+  Book.find(query, (err, books) => {
     if (err) {
       res.type('html').status(500);
       res.send('Error: ' + err);
@@ -66,7 +78,7 @@ function searchAll(req, res) {
     query.year = req.body.year;
   }
 
-  Book.find( query, (err, books) => {
+  Book.find(query, (err, books) => {
     if (err) {
       res.type('html').status(500);
       res.send('Error: ' + err);
