@@ -5,7 +5,7 @@ This project is modified from the example app in the Edx course -
 
 Here are the steps to run this app.
 
-0. setup MongoDB and create the collection.
+1. setup MongoDB and create the collection.
 
 See the instructions on [how to install and run MongoDB server](https://docs.c9.io/docs/setup-a-database).
 
@@ -34,22 +34,22 @@ db.books.insert(
 }])
 ```
 
-1. clone this repo and run the following command in the project directory to
+2. clone this repo and run the following command in the project directory to
   install required node packages.
 ```
 npm install
 ```
 
-2. Start MongoDB server
+3. Start MongoDB server
 ```
 mongod --bind_ip=$IP --nojournal
 ```
 
-3. Start the app (express server)
+4. Start the app (express server)
 
 Run `npm index.js` in the project directory.
 
-4. Play with the app
+5. Play with the app
 
 Go to `https://database-baochuan.c9users.io/public/bookform.html`
 (replace `database-baochuan` with your Cloud 9 workspace name).
